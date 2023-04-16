@@ -1,4 +1,4 @@
-package Entity;
+package Entity.layers;
 
 import Api.LayersApi.LayerInputI;
 
@@ -7,15 +7,13 @@ import java.util.List;
 
 public class InputLayer implements LayerInputI {
 
- private List<Double> neurons = new ArrayList<>();
-
+    private List<Double> neurons = new ArrayList<>();
     public InputLayer(Integer numNeurons) {
          initLayer(numNeurons);
     }
 
-
-     private void initLayer(Integer num) {
-        for (int i = 0; i < num; i++) {
+     private void initLayer(Integer numNeurons) {
+        for (int i = 0; i < numNeurons; i++) {
                 this.neurons.add(0.0);
         }
     }
