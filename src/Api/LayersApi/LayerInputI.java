@@ -3,5 +3,5 @@ package Api.LayersApi;
 import java.util.List;
 
 public interface LayerInputI extends LayerCommonI {
-    public List<Double> encountLayer(List<Double> templateOfLearning);
+   // public List<Double> encountLayer(List<Double> templateOfLearning);
 }

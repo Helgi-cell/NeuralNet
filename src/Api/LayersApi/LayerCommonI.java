@@ -1,6 +1,8 @@
 package Api.LayersApi;
 
-public interface LayerCommonI {
+import java.util.List;
 
+public interface LayerCommonI {
+    public List<Double> encountNeuron(List<Double> prevNeurons);
 }
 

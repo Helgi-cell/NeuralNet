@@ -1,12 +1,11 @@
 package Entity.network;
 
+import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Api.LayersApi.LayerCommonI;
-import Api.LayersApi.LayerInputI;
 import Api.NeuralNetApi.NeuralNetI;
 import Entity.layers.HiddenLayer;
 import Entity.layers.InputLayer;
 import Entity.layers.OutputLayer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +15,21 @@ public class PredictiveNetwork implements NeuralNetI {
     private Double stepLearnimg;
     private Double midSquareError;
 
+    private FunctionEncountingNodesInterface func;
+
     public PredictiveNetwork(Integer numNeuronsInputLayer, Integer nimNeuronsOutputLayer,
-                             Integer numHiddenLayers, Double stepLearnimg, Double midSquareError) {
+                             Integer numHiddenLayers, Double stepLearnimg, Double midSquareError,
+                             FunctionEncountingNodesInterface func) {
         this.stepLearnimg = stepLearnimg;
         this.midSquareError = midSquareError;
         initNetwork(numNeuronsInputLayer, nimNeuronsOutputLayer, numHiddenLayers);
+        this.func = func;
     }
 
     @Override
     public List<LayerCommonI> initNetwork(Integer numNeuronsInputLayer, Integer nimNeuronsOutputLayer,
                                           Integer numHiddenLayers) {
 
-        //LayerCommonI layerInput = new InputLayer(numNeuronsInputLayer);
         this.layers.add(new InputLayer(numNeuronsInputLayer));
         int numNeuprev = numNeuronsInputLayer;
         int numNeu = numNeuronsInputLayer + 1;
@@ -35,8 +37,6 @@ public class PredictiveNetwork implements NeuralNetI {
             this.layers.add(new HiddenLayer(numNeu, numNeuprev ));
             numNeuprev = numNeu;
         }
-
-       // LayerCommonI layerOutput = new OutputLayer(nimNeuronsOutputLayer, numNeu);
         this.layers.add(new OutputLayer(nimNeuronsOutputLayer, numNeu));
         return this.layers;
     }
@@ -54,6 +54,23 @@ public class PredictiveNetwork implements NeuralNetI {
     @Override
     public Double encountWeight() {
         return null;
+    }
+
+    @Override
+    public List<LayerCommonI> incrementNodes() {
+        InputLayer inputLayer = (InputLayer) this.layers.get(0);
+        int prevNodes = inputLayer.getNeurons().size();
+
+        for(int i = 1; i < this.layers.size() - 1; i++){
+            HiddenLayer hiddenLayer = (HiddenLayer) this.layers.get(i);
+            hiddenLayer.setNeurons(hiddenLayer.addNeuronInLayer(prevNodes));
+            layers.set(i,hiddenLayer);
+            prevNodes = hiddenLayer.getNeurons().size();
+        }
+
+        OutputLayer outputLayer = (OutputLayer) this.layers.get(this.layers.size() - 1);
+        outputLayer.addWeightsByNewNeuronInPrevLayer(prevNodes);
+        return this.layers;
     }
 
     public List<LayerCommonI> getLayers() {
@@ -82,10 +99,10 @@ public class PredictiveNetwork implements NeuralNetI {
 
     @Override
     public String toString() {
-        return "PredictiveNetwork{" +
+        return "PredictiveNetwork{\n" +
                 "layers=" + layers +
-                ", stepLearnimg=" + stepLearnimg +
-                ", midSquareError=" + midSquareError +
-                '}';
+                "\n , stepLearnimg=" + stepLearnimg +
+                "\n , midSquareError=" + midSquareError +
+                "}\n\n";
     }
 }

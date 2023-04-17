@@ -1,6 +1,4 @@
-import Entity.layers.HiddenLayer;
-import Entity.layers.InputLayer;
-import Entity.layers.OutputLayer;
+import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Entity.network.PredictiveNetwork;
 
 public class RootPoint {
@@ -28,10 +26,22 @@ public class RootPoint {
             System.out.println(outputLayer + "\n\n");
         }*/
 
-
+        FunctionEncountingNodesInterface functionEncountingNodesInterface = new FunctionEncountingNodesInterface() {
+            @Override
+            public Double nodeResult(Double argument) {
+                return null;
+            }
+        };
         PredictiveNetwork predictiveNetwork = new PredictiveNetwork(1, 1,
-               2, 0.1d, 0.05d);
+               2, 0.1d, 0.05d, functionEncountingNodesInterface);
 
-        System.out.println(predictiveNetwork + "\n\n");
+        System.out.println(predictiveNetwork + "\n\n\n");
+
+        predictiveNetwork.incrementNodes();
+        System.out.println(predictiveNetwork + "\n\n\n");
+
+        predictiveNetwork.incrementNodes();
+        System.out.println(predictiveNetwork + "\n\n\n");
     }
-}
+
+    }

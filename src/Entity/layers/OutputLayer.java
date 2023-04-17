@@ -67,6 +67,12 @@ public class OutputLayer implements LayerFinalI {
                 "neurons=" + neurons +
                 ", \nweigths=" + weigths +
                 ", \nthreshold=" + threshold +
-                '}';
+                "}";
+    }
+
+
+    @Override
+    public List<Double> encountNeuron(List<Double> prevNeurons) {
+        return null;
     }
 }

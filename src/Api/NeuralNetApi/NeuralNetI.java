@@ -10,4 +10,5 @@ public interface NeuralNetI {
     public List<Double> encountNet();
     public List<Double> encountDerivatives();
     public Double encountWeight();
+    public List<LayerCommonI> incrementNodes();
 }

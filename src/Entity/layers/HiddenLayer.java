@@ -1,5 +1,6 @@
 package Entity.layers;
 
+import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Api.LayersApi.LayerHiddenI;
 
 import java.util.ArrayList;
@@ -59,6 +60,12 @@ public class HiddenLayer implements LayerHiddenI {
     }
 
     @Override
+    public List<Double> encountNeuron(List<Double> prevNeurons) {
+        return null;
+    }
+
+
+    @Override
     public void changeWeigths() {
     }
 
@@ -84,7 +91,9 @@ public class HiddenLayer implements LayerHiddenI {
                 "neurons=" + neurons +
                 ",\nweigths=" + weigths +
                 ", \nthreshold=" + threshold +
-                '}';
+                "}\n";
     }
+
+
 
 }

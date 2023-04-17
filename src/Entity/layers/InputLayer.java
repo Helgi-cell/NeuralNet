@@ -18,10 +18,16 @@ public class InputLayer implements LayerInputI {
         }
     }
 
-    @Override
+/*    @Override
     public List<Double> encountLayer(List<Double> templateOfLearning) {
+        if (templateOfLearning.size() == neurons.size()){
+            for (int i = 0; i < neurons.size(); i++){
+                Double value = templateOfLearning.get(i);
+                neurons.set(i, value);
+            }
+        }
         return templateOfLearning;
-    }
+    }*/
 
     public List<Double> getNeurons() {
         return neurons;
@@ -34,7 +40,19 @@ public class InputLayer implements LayerInputI {
     @Override
     public String toString() {
         return "InputLayer{" +
-                "neurons=" + neurons +
-                '}';
+                "\n neurons=" + neurons +
+                "}\n";
+    }
+
+
+    @Override
+    public List<Double> encountNeuron(List<Double> templateOfLearning) {
+        if (templateOfLearning.size() == neurons.size()){
+            for (int i = 0; i < neurons.size(); i++){
+                Double value = templateOfLearning.get(i);
+                neurons.set(i, value);
+            }
+        }
+        return templateOfLearning;
     }
 }
