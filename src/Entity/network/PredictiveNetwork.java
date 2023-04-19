@@ -14,16 +14,16 @@ public class PredictiveNetwork implements NeuralNetI {
     private List<LayerCommonI> layers = new ArrayList<>();
     private Double stepLearnimg;
     private Double midSquareError;
-
-    private FunctionEncountingNodesInterface func;
+    public FunctionEncountingNodesInterface func;
 
     public PredictiveNetwork(Integer numNeuronsInputLayer, Integer nimNeuronsOutputLayer,
                              Integer numHiddenLayers, Double stepLearnimg, Double midSquareError,
                              FunctionEncountingNodesInterface func) {
         this.stepLearnimg = stepLearnimg;
         this.midSquareError = midSquareError;
-        initNetwork(numNeuronsInputLayer, nimNeuronsOutputLayer, numHiddenLayers);
         this.func = func;
+        initNetwork(numNeuronsInputLayer, nimNeuronsOutputLayer, numHiddenLayers);
+
     }
 
     @Override
@@ -34,16 +34,24 @@ public class PredictiveNetwork implements NeuralNetI {
         int numNeuprev = numNeuronsInputLayer;
         int numNeu = numNeuronsInputLayer + 1;
         for(int i = 0; i < numHiddenLayers; i++){
-            this.layers.add(new HiddenLayer(numNeu, numNeuprev ));
+            this.layers.add(new HiddenLayer(numNeu, numNeuprev, this.func ));
             numNeuprev = numNeu;
         }
-        this.layers.add(new OutputLayer(nimNeuronsOutputLayer, numNeu));
+        this.layers.add(new OutputLayer(nimNeuronsOutputLayer, numNeu, this.func));
         return this.layers;
     }
 
     @Override
-    public List<Double> encountNet() {
-        return null;
+    public List<Double> encountNet(List<Double> templateOfLearning) {
+        InputLayer inputLayer = (InputLayer) this.layers.get(0);
+        List<Double> neuronsActivation = inputLayer.encountNeuron(templateOfLearning);
+        for (int i = 1; i < this.layers.size() -1; i++){
+            HiddenLayer hiddenLayer = (HiddenLayer)  this.layers.get(i);
+            neuronsActivation = hiddenLayer.encountNeuron(neuronsActivation);
+        }
+        OutputLayer outputLayer = (OutputLayer)  this.layers.get(this.layers.size() - 1);
+        neuronsActivation = outputLayer.encountNeuron(neuronsActivation);
+        return neuronsActivation;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Entity.layers;
 
+import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Api.LayersApi.LayerFinalI;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,11 @@ public class OutputLayer implements LayerFinalI {
     private List<Double> neurons = new ArrayList<>();
     private List <List<Double>> weigths = new ArrayList<>();
     private List <Double> threshold = new ArrayList<>();
-    public OutputLayer(Integer numNeurons, Integer numNeuronsPrevLayer) {
+
+    public FunctionEncountingNodesInterface function;
+    public OutputLayer(Integer numNeurons, Integer numNeuronsPrevLayer, FunctionEncountingNodesInterface function) {
         initLayer(numNeurons, numNeuronsPrevLayer);
+        this.function = function;
     }
 
     private void initLayer(Integer numNeurons, Integer numNeuronsPrevLayer) {
@@ -39,6 +43,25 @@ public class OutputLayer implements LayerFinalI {
       return this.neurons;
     }
 
+
+    @Override
+    public List<Double> encountNeuron(List<Double> prevNeurons) {
+        List<Double> weightsByNeuron = new ArrayList<>();
+        Double sumWeigths;// = 0.0d;
+        for(int i = 0; i < this.neurons.size(); i++){
+            sumWeigths = 0.0d;
+            weightsByNeuron = this.weigths.get(i);
+            for (int j = 0; j < prevNeurons.size(); j++){
+
+                sumWeigths += weightsByNeuron.get(j) * prevNeurons.get(j);
+            }
+            sumWeigths = function.nodeResult(sumWeigths - this.threshold.get(i));
+            this.neurons.set(i, sumWeigths);
+        }
+
+        return this.neurons;
+    }
+
     @Override
     public void changeWeigths() {
 
@@ -60,6 +83,13 @@ public class OutputLayer implements LayerFinalI {
         this.weigths = weigths;
     }
 
+    public List<Double> getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(List<Double> threshold) {
+        this.threshold = threshold;
+    }
 
     @Override
     public String toString() {
@@ -71,8 +101,5 @@ public class OutputLayer implements LayerFinalI {
     }
 
 
-    @Override
-    public List<Double> encountNeuron(List<Double> prevNeurons) {
-        return null;
-    }
+
 }

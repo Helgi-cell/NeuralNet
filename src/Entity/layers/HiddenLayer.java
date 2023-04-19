@@ -10,8 +10,13 @@ public class HiddenLayer implements LayerHiddenI {
 
     private List<Double> neurons = new ArrayList<>();
     private List <List<Double>> weigths = new ArrayList<>();
-    List <Double> threshold = new ArrayList<>();
-    public HiddenLayer(Integer numNeurons, Integer numNeuronsPrevLayer) {
+    private List <Double> threshold = new ArrayList<>();
+
+    public FunctionEncountingNodesInterface func;
+
+    public HiddenLayer(Integer numNeurons, Integer numNeuronsPrevLayer, FunctionEncountingNodesInterface function)
+    {
+        this.func = function;
         initLayer(numNeurons, numNeuronsPrevLayer);
     }
 
@@ -61,7 +66,20 @@ public class HiddenLayer implements LayerHiddenI {
 
     @Override
     public List<Double> encountNeuron(List<Double> prevNeurons) {
-        return null;
+        List<Double> weightsByNeuron = new ArrayList<>();
+        Double sumWeigths;// = 0.0d;
+        for(int i = 0; i < this.neurons.size(); i++){
+            sumWeigths = 0.0d;
+            weightsByNeuron = this.weigths.get(i);
+            for (int j = 0; j < prevNeurons.size(); j++){
+
+                sumWeigths += weightsByNeuron.get(j) * prevNeurons.get(j);
+            }
+            sumWeigths = this.func.nodeResult(sumWeigths - this.threshold.get(i));
+            this.neurons.set(i, sumWeigths);
+        }
+
+        return this.neurons;
     }
 
 
@@ -83,6 +101,14 @@ public class HiddenLayer implements LayerHiddenI {
 
     public void setWeigths(List<List<Double>> weigths) {
         this.weigths = weigths;
+    }
+
+    public List<Double> getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(List<Double> threshold) {
+        this.threshold = threshold;
     }
 
     @Override

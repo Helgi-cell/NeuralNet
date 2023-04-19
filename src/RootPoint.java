@@ -1,5 +1,9 @@
 import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Entity.network.PredictiveNetwork;
+import service.SigmoidFunction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RootPoint {
     public static void main(String[] args) {
@@ -26,22 +30,25 @@ public class RootPoint {
             System.out.println(outputLayer + "\n\n");
         }*/
 
-        FunctionEncountingNodesInterface functionEncountingNodesInterface = new FunctionEncountingNodesInterface() {
-            @Override
-            public Double nodeResult(Double argument) {
-                return null;
-            }
-        };
+        FunctionEncountingNodesInterface func = new SigmoidFunction();
         PredictiveNetwork predictiveNetwork = new PredictiveNetwork(1, 1,
-               2, 0.1d, 0.05d, functionEncountingNodesInterface);
+               2, 0.1d, 0.05d, func);
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
+
+        List<Double> learningData = new ArrayList<>();
+        learningData.add(1.0d);
+        predictiveNetwork.encountNet(learningData);
+
+        System.out.println(predictiveNetwork + "\n\n\n");
+
+/*
         predictiveNetwork.incrementNodes();
         System.out.println(predictiveNetwork + "\n\n\n");
 
         predictiveNetwork.incrementNodes();
-        System.out.println(predictiveNetwork + "\n\n\n");
+        System.out.println(predictiveNetwork + "\n\n\n");*/
     }
 
     }
