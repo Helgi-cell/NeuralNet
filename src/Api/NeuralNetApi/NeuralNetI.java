@@ -11,4 +11,6 @@ public interface NeuralNetI {
     List<List<Double>> encountDerivatives();
     Double encountWeight();
     List<LayerCommonI> incrementNodes();
+
+    List<List<Double>> encountNetErrors();
 }

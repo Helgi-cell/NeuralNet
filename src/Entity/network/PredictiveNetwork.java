@@ -18,6 +18,8 @@ public class PredictiveNetwork implements NeuralNetI {
 
     private List<List<Double>> derivatives = new ArrayList<>();
 
+    private List<List<Double>> netErrors = new ArrayList<>();
+
     public PredictiveNetwork(Integer numNeuronsInputLayer, Integer nimNeuronsOutputLayer,
                              Integer numHiddenLayers, Double stepLearnimg, Double midSquareError,
                              FunctionEncountingNodesInterface func) {
@@ -59,6 +61,7 @@ public class PredictiveNetwork implements NeuralNetI {
     @Override
     public List<List<Double>> encountDerivatives() {
         List<Double> layerDerivatives = new ArrayList<>();
+        this.derivatives.clear();
         for(int i = 1; i < this.layers.size() -1; i++){
             for (Double neuron: ((HiddenLayer) this.layers.get(i)).getNeurons()) {
                 layerDerivatives.add(func.derivativeResultOfNode(neuron));
@@ -73,6 +76,13 @@ public class PredictiveNetwork implements NeuralNetI {
 
         return this.derivatives;
     }
+
+
+    @Override
+    public List<List<Double>> encountNetErrors() {
+        return null;
+    }
+
 
     @Override
     public Double encountWeight() {
@@ -95,6 +105,8 @@ public class PredictiveNetwork implements NeuralNetI {
         outputLayer.addWeightsByNewNeuronInPrevLayer(prevNodes);
         return this.layers;
     }
+
+
 
     public List<LayerCommonI> getLayers() {
         return layers;
