@@ -9,8 +9,8 @@ public class OutputLayer implements LayerFinalI {
     private List<Double> neurons = new ArrayList<>();
     private List <List<Double>> weigths = new ArrayList<>();
     private List <Double> threshold = new ArrayList<>();
+    private FunctionEncountingNodesInterface function;
 
-    public FunctionEncountingNodesInterface function;
     public OutputLayer(Integer numNeurons, Integer numNeuronsPrevLayer, FunctionEncountingNodesInterface function) {
         initLayer(numNeurons, numNeuronsPrevLayer);
         this.function = function;
@@ -89,6 +89,14 @@ public class OutputLayer implements LayerFinalI {
 
     public void setThreshold(List<Double> threshold) {
         this.threshold = threshold;
+    }
+
+    public FunctionEncountingNodesInterface getFunction() {
+        return function;
+    }
+
+    public void setFunction(FunctionEncountingNodesInterface function) {
+        this.function = function;
     }
 
     @Override

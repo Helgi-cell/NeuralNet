@@ -12,7 +12,7 @@ public class HiddenLayer implements LayerHiddenI {
     private List <List<Double>> weigths = new ArrayList<>();
     private List <Double> threshold = new ArrayList<>();
 
-    public FunctionEncountingNodesInterface func;
+    private FunctionEncountingNodesInterface func;
 
     public HiddenLayer(Integer numNeurons, Integer numNeuronsPrevLayer, FunctionEncountingNodesInterface function)
     {
@@ -109,6 +109,14 @@ public class HiddenLayer implements LayerHiddenI {
 
     public void setThreshold(List<Double> threshold) {
         this.threshold = threshold;
+    }
+
+    public FunctionEncountingNodesInterface getFunc() {
+        return func;
+    }
+
+    public void setFunc(FunctionEncountingNodesInterface func) {
+        this.func = func;
     }
 
     @Override

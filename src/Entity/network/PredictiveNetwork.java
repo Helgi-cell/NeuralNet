@@ -14,7 +14,9 @@ public class PredictiveNetwork implements NeuralNetI {
     private List<LayerCommonI> layers = new ArrayList<>();
     private Double stepLearnimg;
     private Double midSquareError;
-    public FunctionEncountingNodesInterface func;
+    private FunctionEncountingNodesInterface func;
+
+    private List<List<Double>> derivatives = new ArrayList<>();
 
     public PredictiveNetwork(Integer numNeuronsInputLayer, Integer nimNeuronsOutputLayer,
                              Integer numHiddenLayers, Double stepLearnimg, Double midSquareError,
@@ -55,8 +57,21 @@ public class PredictiveNetwork implements NeuralNetI {
     }
 
     @Override
-    public List<Double> encountDerivatives() {
-        return null;
+    public List<List<Double>> encountDerivatives() {
+        List<Double> layerDerivatives = new ArrayList<>();
+        for(int i = 1; i < this.layers.size() -1; i++){
+            for (Double neuron: ((HiddenLayer) this.layers.get(i)).getNeurons()) {
+                layerDerivatives.add(func.derivativeResultOfNode(neuron));
+            }
+            this.derivatives.add(layerDerivatives);
+            layerDerivatives = new ArrayList<>();
+        }
+        for (Double neuron:((OutputLayer) this.layers.get(this.layers.size() -1)).getNeurons()) {
+        layerDerivatives.add(func.derivativeResultOfNode(neuron));
+        }
+        this.derivatives.add(layerDerivatives);
+
+        return this.derivatives;
     }
 
     @Override
@@ -105,12 +120,39 @@ public class PredictiveNetwork implements NeuralNetI {
         this.midSquareError = midSquareError;
     }
 
+    public FunctionEncountingNodesInterface getFunc() {
+        return func;
+    }
+
+    public void setFunc(FunctionEncountingNodesInterface func) {
+        this.func = func;
+    }
+
+    public List<List<Double>> getDerivatives() {
+        return derivatives;
+    }
+
+    public void setDerivatives(List<List<Double>> derivatives) {
+        this.derivatives = derivatives;
+    }
+
     @Override
+    public String toString() {
+        return "PredictiveNetwork{\n" +
+                "layers=\n\t" + layers +
+               /* ", stepLearnimg=" + stepLearnimg +
+                ", midSquareError=" + midSquareError +*/
+               /* ", func=" + func +*/
+                "\n\t, derivatives=\n\t" + derivatives +
+                '}';
+    }
+
+    /*  @Override
     public String toString() {
         return "PredictiveNetwork{\n" +
                 "layers=" + layers +
                 "\n , stepLearnimg=" + stepLearnimg +
                 "\n , midSquareError=" + midSquareError +
                 "}\n\n";
-    }
+    }*/
 }

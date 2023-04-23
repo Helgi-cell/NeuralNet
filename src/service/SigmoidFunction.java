@@ -13,4 +13,7 @@ public class SigmoidFunction implements FunctionEncountingNodesInterface {
     public Double nodeResult(Double argument) {
         return 1/(1 + exp(-1.0d * argument ));
     }
+
+    @Override
+    public Double derivativeResultOfNode(Double argument) { return argument * (1 - argument); }
 }
