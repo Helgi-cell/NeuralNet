@@ -12,5 +12,5 @@ public interface NeuralNetI {
     Double encountWeight();
     List<LayerCommonI> incrementNodes();
 
-    List<List<Double>> encountNetErrors();
+    List<List<Double>> encountNetErrors(List<Double> outputTemplateOfLearning);
 }

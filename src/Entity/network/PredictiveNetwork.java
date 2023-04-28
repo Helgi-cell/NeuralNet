@@ -8,6 +8,7 @@ import Entity.layers.InputLayer;
 import Entity.layers.OutputLayer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class PredictiveNetwork implements NeuralNetI {
 
@@ -19,6 +20,9 @@ public class PredictiveNetwork implements NeuralNetI {
     private List<List<Double>> derivatives = new ArrayList<>();
 
     private List<List<Double>> netErrors = new ArrayList<>();
+
+   /* List<Double> inputTemplateOfLearning;
+    List<Double> outputTemplateOfLearning;*/
 
     public PredictiveNetwork(Integer numNeuronsInputLayer, Integer nimNeuronsOutputLayer,
                              Integer numHiddenLayers, Double stepLearnimg, Double midSquareError,
@@ -42,6 +46,23 @@ public class PredictiveNetwork implements NeuralNetI {
             numNeuprev = numNeu;
         }
         this.layers.add(new OutputLayer(nimNeuronsOutputLayer, numNeu, this.func));
+
+        for(int i = 0; i < numHiddenLayers; i++){
+            List<Double> errorNode = new ArrayList<>();
+            for (int j = 0; j < numNeu; j++){
+                errorNode.add(0.0d);
+            }
+            this.netErrors.add(errorNode);
+            this.derivatives.add(errorNode);
+        }
+
+        List<Double> errorNode = new ArrayList<>();
+        for(int i = 0; i < nimNeuronsOutputLayer; i++){
+                errorNode.add(0.0d);
+        }
+        this.netErrors.add(errorNode);
+        this.derivatives.add(errorNode);
+
         return this.layers;
     }
 
@@ -79,9 +100,28 @@ public class PredictiveNetwork implements NeuralNetI {
 
 
     @Override
-    public List<List<Double>> encountNetErrors() {
+    public List<List<Double>> encountNetErrors(List<Double> outputTemplateOfLearning) {
+        List<Double> errors = new ArrayList<>();
+        Stack <List<Double>> stack = new Stack<>();
+        OutputLayer outputLayer = (OutputLayer) this.layers.get(this.layers.size() - 1);
+
+        for (int i = 0; i < outputLayer.getNeurons().size(); i++){
+            errors.add(outputLayer.getNeurons().get(i) - outputTemplateOfLearning.get(i));
+        }
+        stack.push(errors);
         return null;
     }
+
+
+    private List<Double> encountHiddenLayerError(List<Double> errorsPrev, Stack <List<Double>> stack){
+        List<Double> errors = new ArrayList<>();
+        for (int i = 1; i < layers.size() - 1; i++){
+
+        }
+
+        return null;
+    }
+
 
 
     @Override
@@ -103,6 +143,12 @@ public class PredictiveNetwork implements NeuralNetI {
 
         OutputLayer outputLayer = (OutputLayer) this.layers.get(this.layers.size() - 1);
         outputLayer.addWeightsByNewNeuronInPrevLayer(prevNodes);
+
+        for (int i = 1; i < this.layers.size() -1; i++ ){
+            this.netErrors.get(i - 1).add(0.0d);
+        }
+
+
         return this.layers;
     }
 
@@ -152,9 +198,9 @@ public class PredictiveNetwork implements NeuralNetI {
     public String toString() {
         return "PredictiveNetwork{\n" +
                 "layers=\n\t" + layers +
-               /* ", stepLearnimg=" + stepLearnimg +
-                ", midSquareError=" + midSquareError +*/
-               /* ", func=" + func +*/
+                /*", stepLearnimg=" + stepLearnimg +*/
+                "\n\t, netErrors=" + netErrors +
+                /*", func=" + func +*/
                 "\n\t, derivatives=\n\t" + derivatives +
                 '}';
     }
