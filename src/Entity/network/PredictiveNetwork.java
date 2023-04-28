@@ -102,13 +102,12 @@ public class PredictiveNetwork implements NeuralNetI {
     @Override
     public List<List<Double>> encountNetErrors(List<Double> outputTemplateOfLearning) {
         List<Double> errors = new ArrayList<>();
-        Stack <List<Double>> stack = new Stack<>();
         OutputLayer outputLayer = (OutputLayer) this.layers.get(this.layers.size() - 1);
 
         for (int i = 0; i < outputLayer.getNeurons().size(); i++){
             errors.add(outputLayer.getNeurons().get(i) - outputTemplateOfLearning.get(i));
         }
-        stack.push(errors);
+        this.netErrors.set(netErrors.size() - 1, errors);
         return null;
     }
 

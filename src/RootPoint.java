@@ -27,6 +27,8 @@ public class RootPoint {
 
 
         predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
         predictiveNetwork.encountNet(learningData);
         predictiveNetwork.encountDerivatives();
 
