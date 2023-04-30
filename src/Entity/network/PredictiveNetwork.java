@@ -21,6 +21,10 @@ public class PredictiveNetwork implements NeuralNetI {
 
     private List<List<Double>> netErrors = new ArrayList<>();
 
+    private Stack<List<Double>> derivateStack = new Stack<>();
+    private Stack<List<Double>> errorsStack = new Stack<>();
+    private Stack<List<List<Double>>> weigthStack = new Stack<>();
+
    /* List<Double> inputTemplateOfLearning;
     List<Double> outputTemplateOfLearning;*/
 
@@ -101,26 +105,51 @@ public class PredictiveNetwork implements NeuralNetI {
 
     @Override
     public List<List<Double>> encountNetErrors(List<Double> outputTemplateOfLearning) {
+        this.errorsStack.clear();
+        this.derivateStack.clear();
+        this.weigthStack.clear();
         List<Double> errors = new ArrayList<>();
         OutputLayer outputLayer = (OutputLayer) this.layers.get(this.layers.size() - 1);
 
         for (int i = 0; i < outputLayer.getNeurons().size(); i++){
             errors.add(outputLayer.getNeurons().get(i) - outputTemplateOfLearning.get(i));
         }
-        this.netErrors.set(netErrors.size() - 1, errors);
-        return null;
-    }
+        this.netErrors.set(this.netErrors.size() - 1, errors);
+        OutputLayer layerCommon = (OutputLayer) this.layers.get(this.layers.size() - 1);
+        List<List<Double>> weigths = layerCommon.getWeigths();
+        this.netErrors.set(this.netErrors.size() - 1, errors);
+/*
 
+        for (List<Double> err : this.netErrors){ this.errorsStack.push(err); }
+        for (List<Double> der : this.derivatives){ this.derivateStack.push(der);}
+        fillStackByWeigths();
 
-    private List<Double> encountHiddenLayerError(List<Double> errorsPrev, Stack <List<Double>> stack){
-        List<Double> errors = new ArrayList<>();
-        for (int i = 1; i < layers.size() - 1; i++){
+        Double sumGamma = 0.0d;
+        List<Double> listDeriv = this.derivateStack.pop();
+        List<Double> nextErrors = this.errorsStack.pop();
+        List<List<Double>> nextWeigths = this.weigthStack.pop();
+
+        while (!this.errorsStack.empty()){
+
 
         }
+*/
+
 
         return null;
     }
 
+
+    private void fillStackByWeigths(){
+        HiddenLayer hiddenLayer;
+        for(int i = 2; i < this.layers.size() - 1; i++){
+            hiddenLayer = (HiddenLayer)this.layers.get(i);
+            this.weigthStack.push(hiddenLayer.getWeigths());
+        }
+        OutputLayer outputLayer;
+        outputLayer = (OutputLayer) this.layers.get(this.layers.size() - 1);
+        this.weigthStack.push(outputLayer.getWeigths());
+    }
 
 
     @Override
