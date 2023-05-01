@@ -118,29 +118,34 @@ public class PredictiveNetwork implements NeuralNetI {
         OutputLayer layerCommon = (OutputLayer) this.layers.get(this.layers.size() - 1);
         List<List<Double>> weigths = layerCommon.getWeigths();
         this.netErrors.set(this.netErrors.size() - 1, errors);
-/*
-
-        for (List<Double> err : this.netErrors){ this.errorsStack.push(err); }
-        for (List<Double> der : this.derivatives){ this.derivateStack.push(der);}
-        fillStackByWeigths();
-
-        Double sumGamma = 0.0d;
+            fillStack();
+            Double sumGamma = 0.0d;
         List<Double> listDeriv = this.derivateStack.pop();
         List<Double> nextErrors = this.errorsStack.pop();
         List<List<Double>> nextWeigths = this.weigthStack.pop();
 
-        while (!this.errorsStack.empty()){
-
-
+        while (!this.errorsStack.empty()) {
+            errors = this.errorsStack.pop();
+                for (int j = 0; j < errors.size(); j++ ) {
+                    for (int i = 0; i < nextErrors.size(); i++){
+                        sumGamma += listDeriv.get(i) * nextErrors.get(i) * nextWeigths.get(i).get(j);
+                    }
+                    errors.set(j, sumGamma);
+                    sumGamma = 0.0d;
+                }
         }
-*/
+
 
 
         return null;
     }
 
 
-    private void fillStackByWeigths(){
+    private void fillStack(){
+
+        for (List<Double> err : this.netErrors){ this.errorsStack.push(err); }
+        for (List<Double> der : this.derivatives){ this.derivateStack.push(der);}
+
         HiddenLayer hiddenLayer;
         for(int i = 2; i < this.layers.size() - 1; i++){
             hiddenLayer = (HiddenLayer)this.layers.get(i);
