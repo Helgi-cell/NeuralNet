@@ -26,12 +26,11 @@ public class RootPoint {
         System.out.println(predictiveNetwork + "\n\n\n");
 
 
-        predictiveNetwork.incrementNodes();
-        predictiveNetwork.incrementNodes();
-        predictiveNetwork.incrementNodes();
-        predictiveNetwork.encountNet(learningData);
+        System.out.println("Result net - > \n" + predictiveNetwork.encountNet(learningData) + "\n\n");
+
+
         predictiveNetwork.encountDerivatives();
-        predictiveNetwork.encountNetErrors(outputData);
+        predictiveNetwork.encountNetErrors(learningData, outputData);
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
