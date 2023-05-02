@@ -34,12 +34,6 @@ public class RootPoint {
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
-
-
-
-
-     /*   predictiveNetwork.incrementNodes();
-        System.out.println(predictiveNetwork + "\n\n\n");*/
     }
 
     }

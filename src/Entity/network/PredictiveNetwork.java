@@ -21,9 +21,13 @@ public class PredictiveNetwork implements NeuralNetI {
 
     private List<List<Double>> netErrors = new ArrayList<>();
 
+
+    private Stack<List<Double>> nodesStack = new Stack<>();
     private Stack<List<Double>> derivateStack = new Stack<>();
     private Stack<List<Double>> errorsStack = new Stack<>();
     private Stack<List<List<Double>>> weigthStack = new Stack<>();
+
+    private Stack<List<Double>> thresholdStack = new Stack<>();
 
    /* List<Double> inputTemplateOfLearning;
     List<Double> outputTemplateOfLearning;*/
@@ -118,7 +122,7 @@ public class PredictiveNetwork implements NeuralNetI {
         OutputLayer layerCommon = (OutputLayer) this.layers.get(this.layers.size() - 1);
         List<List<Double>> weigths = layerCommon.getWeigths();
         this.netErrors.set(this.netErrors.size() - 1, errors);
-            fillStack();
+            fillStackEncountErrors();
             Double sumGamma = 0.0d;
         List<Double> listDeriv = this.derivateStack.pop();
         List<Double> nextErrors = this.errorsStack.pop();
@@ -141,7 +145,7 @@ public class PredictiveNetwork implements NeuralNetI {
     }
 
 
-    private void fillStack(){
+    private void fillStackEncountErrors(){
 
         for (List<Double> err : this.netErrors){ this.errorsStack.push(err); }
         for (List<Double> der : this.derivatives){ this.derivateStack.push(der);}
@@ -159,7 +163,32 @@ public class PredictiveNetwork implements NeuralNetI {
 
     @Override
     public Double encountWeight() {
+
+
         return null;
+    }
+
+    private void fillStackEncountWeigths(){
+        HiddenLayer hiddenLayer;
+        for (int i = 1; i < this.layers.size() - 1; i++){
+            hiddenLayer = (HiddenLayer) this.layers.get(i);
+            this.weigthStack.push(hiddenLayer.getWeigths());
+            this.thresholdStack.push(hiddenLayer.getThreshold());
+        }
+
+        OutputLayer outputLayer = (OutputLayer) this.layers.get(this.layers.size() - 1);
+        this.weigthStack.push(outputLayer.getWeigths());
+        this.thresholdStack.push(outputLayer.getThreshold());
+
+        for (List<Double> err : this.netErrors){ this.errorsStack.push(err); }
+        for (List<Double> der : this.derivatives){ this.derivateStack.push(der);}
+
+        InputLayer inputLayer = (InputLayer) this.layers.get(0);
+        this.nodesStack.push(inputLayer.getNeurons());
+        for (int i = 1; i < this.layers.size() - 1; i++){
+            hiddenLayer = (HiddenLayer) this.layers.get(i);
+            this.nodesStack.push(hiddenLayer.getNeurons());
+        }
     }
 
     @Override
@@ -238,12 +267,5 @@ public class PredictiveNetwork implements NeuralNetI {
                 '}';
     }
 
-    /*  @Override
-    public String toString() {
-        return "PredictiveNetwork{\n" +
-                "layers=" + layers +
-                "\n , stepLearnimg=" + stepLearnimg +
-                "\n , midSquareError=" + midSquareError +
-                "}\n\n";
-    }*/
+
 }
