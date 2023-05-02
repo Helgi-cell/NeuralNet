@@ -163,7 +163,7 @@ public class PredictiveNetwork implements NeuralNetI {
 
     @Override
     public Double encountWeight() {
-
+        fillStackEncountWeigths();
 
         return null;
     }
