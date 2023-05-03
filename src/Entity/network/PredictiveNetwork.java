@@ -29,8 +29,7 @@ public class PredictiveNetwork implements NeuralNetI {
 
     private Stack<List<Double>> thresholdStack = new Stack<>();
 
-   /* List<Double> inputTemplateOfLearning;
-    List<Double> outputTemplateOfLearning;*/
+
 
     public PredictiveNetwork(Integer numNeuronsInputLayer, Integer nimNeuronsOutputLayer,
                              Integer numHiddenLayers, Double stepLearnimg, Double midSquareError,
