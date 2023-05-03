@@ -84,6 +84,9 @@ public class PredictiveNetwork implements NeuralNetI {
         }
         OutputLayer outputLayer = (OutputLayer)  this.layers.get(this.layers.size() - 1);
         neuronsActivation = outputLayer.encountNeuron(neuronsActivation);
+        for (int i = 0; i < neuronsActivation.size(); i++){
+            neuronsActivation.set(i, neuronsActivation.get(i) *  templateOfLearning.get(i) + templateOfLearning.get(i));
+        }
         return neuronsActivation;
     }
 
@@ -164,6 +167,35 @@ public class PredictiveNetwork implements NeuralNetI {
     @Override
     public Double encountWeight() {
         fillStackEncountWeigths();
+        List<List<Double>> weigthsOfLayer;
+        List<Double> derivativesOfLayer;
+        List<Double> errorsOfLayer;
+        List<Double> prevNodes;
+        List<Double> thresholdOfLayer;
+        while (!thresholdStack.empty()){//!this.weigthStack.empty()){
+            weigthsOfLayer = this.weigthStack.pop();
+            derivativesOfLayer = this.derivateStack.pop();
+            errorsOfLayer = this.errorsStack.pop();
+            prevNodes = this.nodesStack.pop();
+            thresholdOfLayer = this.thresholdStack.pop();
+            for (int i = 0; i < thresholdOfLayer.size(); i++ ){
+                thresholdOfLayer.set(i, (thresholdOfLayer.get(i)
+                                        + this.stepLearnimg * errorsOfLayer.get(i) * derivativesOfLayer.get(i)));
+            }
+
+
+            for (int j = 0; j < weigthsOfLayer.size(); j++){
+                    List<Double> wgth = weigthsOfLayer.get(j);
+
+                for(int i = 0; i < weigthsOfLayer.get(j).size(); i++){
+                    wgth.set(i,wgth.get(i) - this.stepLearnimg * errorsOfLayer.get(j)
+                                                                        * derivativesOfLayer.get(j) * prevNodes.get(i));
+
+                }
+            }
+
+
+        }
 
         return null;
     }

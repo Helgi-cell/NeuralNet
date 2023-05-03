@@ -12,28 +12,33 @@ public class RootPoint {
 
         FunctionEncountingNodesInterface func = new SigmoidFunction();
         NeuralNetI predictiveNetwork = new PredictiveNetwork(1, 1,
-               2, 0.1d, 0.05d, func);
+               2, 0.01d, 0.1d, func);
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
 
         List<Double> learningData = new ArrayList<>();
         List<Double> outputData = new ArrayList<>();
-        learningData.add(1.0d);
-        outputData.add(2.0d);
-        predictiveNetwork.encountNet(learningData);
-
-        System.out.println(predictiveNetwork + "\n\n\n");
+        learningData.add(2.0d);
+        outputData.add(3.0d);
 
 
-        System.out.println("Result net - > \n" + predictiveNetwork.encountNet(learningData) + "\n\n");
+        for (int i = 0; i < 2; i++) {
+            predictiveNetwork.encountNet(learningData);
+
+            System.out.println(predictiveNetwork + "\n\n\n");
 
 
-        predictiveNetwork.encountDerivatives();
-        predictiveNetwork.encountNetErrors(learningData, outputData);
+            System.out.println("Result net - > \n" + predictiveNetwork.encountNet(learningData) + "\n\n");
 
-        System.out.println(predictiveNetwork + "\n\n\n");
 
+            predictiveNetwork.encountDerivatives();
+            predictiveNetwork.encountNetErrors(learningData, outputData);
+            predictiveNetwork.encountWeight();
+
+            System.out.println(predictiveNetwork + "\n\n\n");
+            System.out.println("Result net - > \n" + predictiveNetwork.encountNet(learningData) + "\n\n");
+        }
     }
 
     }
