@@ -16,17 +16,12 @@ public class PredictiveNetwork implements NeuralNetI {
     private Double stepLearnimg;
     private Double midSquareError;
     private FunctionEncountingNodesInterface func;
-
     private List<List<Double>> derivatives = new ArrayList<>();
-
     private List<List<Double>> netErrors = new ArrayList<>();
-
-
     private Stack<List<Double>> nodesStack = new Stack<>();
     private Stack<List<Double>> derivateStack = new Stack<>();
     private Stack<List<Double>> errorsStack = new Stack<>();
     private Stack<List<List<Double>>> weigthStack = new Stack<>();
-
     private Stack<List<Double>> thresholdStack = new Stack<>();
 
 
@@ -118,7 +113,9 @@ public class PredictiveNetwork implements NeuralNetI {
         OutputLayer outputLayer = (OutputLayer) this.layers.get(this.layers.size() - 1);
 
         for (int i = 0; i < outputLayer.getNeurons().size(); i++){
-            errors.add(outputLayer.getNeurons().get(i) * inputTemplateOfLearning.get(i) - outputTemplateOfLearning.get(i));
+            errors.add(outputLayer.getNeurons().get(i) //* inputTemplateOfLearning.get(i)
+                    //   + inputTemplateOfLearning.get(i)
+                    - outputTemplateOfLearning.get(i));
         }
         this.netErrors.set(this.netErrors.size() - 1, errors);
         OutputLayer layerCommon = (OutputLayer) this.layers.get(this.layers.size() - 1);
@@ -140,9 +137,6 @@ public class PredictiveNetwork implements NeuralNetI {
                     sumGamma = 0.0d;
                 }
         }
-
-
-
         return this.netErrors;
     }
 
@@ -192,8 +186,6 @@ public class PredictiveNetwork implements NeuralNetI {
 
                 }
             }
-
-
         }
 
         return null;

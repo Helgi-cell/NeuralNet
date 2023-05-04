@@ -23,7 +23,7 @@ public class RootPoint {
         outputData.add(3.0d);
 
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 4; i++) {
             predictiveNetwork.encountNet(learningData);
 
             System.out.println(predictiveNetwork + "\n\n\n");
