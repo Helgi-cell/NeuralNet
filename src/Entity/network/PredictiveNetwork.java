@@ -140,6 +140,25 @@ public class PredictiveNetwork implements NeuralNetI {
         return this.netErrors;
     }
 
+    @Override
+    public Double encountMidSquareError(List<List<Double>> inputLearningData, List<List<Double>> outputLearningData) {
+            Double midError = 0.0d;
+            List<Double> inpData;
+            List<Double> outData;
+            for (int i = 0; i < inputLearningData.size(); i++){
+                inpData = inputLearningData.get(i);
+                outData = outputLearningData.get(i);
+                encountNet(inpData);
+                encountNetErrors(inpData, outData);
+                List<Double> errors = this.netErrors.get(this.netErrors.size() -1);
+                for(Double err : errors){
+                    midError += Math.pow(err, 2);
+                }
+            }
+
+        return midError * 0.5d;
+    }
+
 
     private void fillStackEncountErrors(){
 
@@ -278,6 +297,8 @@ public class PredictiveNetwork implements NeuralNetI {
     public void setDerivatives(List<List<Double>> derivatives) {
         this.derivatives = derivatives;
     }
+
+
 
     @Override
     public String toString() {

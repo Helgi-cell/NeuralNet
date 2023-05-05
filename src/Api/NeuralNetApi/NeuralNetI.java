@@ -13,4 +13,6 @@ public interface NeuralNetI {
     List<LayerCommonI> incrementNodes();
 
     List<List<Double>> encountNetErrors(List <Double> inputTemplateOfLearning,List<Double> outputTemplateOfLearning);
+
+    Double encountMidSquareError (List<List<Double>> inputLearningData, List<List<Double>> outputLearningData);
 }
