@@ -114,18 +114,18 @@ public class RootPoint {
 
             List<Double> test = new ArrayList<>();
             test.add(8.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test));
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 13);
             test.remove(0);
             test.add(13.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test));
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 21);
 
         test.remove(0);
         test.add(21.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test));
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 34);
 
         test.remove(0);
-        test.add(33.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test));
+        test.add(34.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 55);
     }
 
 
