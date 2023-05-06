@@ -13,7 +13,7 @@ public class RootPoint {
 
         FunctionEncountingNodesInterface func = new SigmoidFunction();
         NeuralNetI predictiveNetwork = new PredictiveNetwork(1, 1,
-               4, 0.0001d, 0.4d, func);
+               4, 0.000000000000000009d, 0.4d, func);
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
@@ -22,55 +22,110 @@ public class RootPoint {
         List<List<Double>> outputData = new ArrayList<>();
         List<Double> inputD = new ArrayList<>();
         List<Double> outputD = new ArrayList<>();
+        inputD.add(1.0d);
+        outputD.add(2.0d);
+        learningData.add(inputD);
+        outputData.add(outputD);
+        inputD = new ArrayList<>();
+        outputD = new ArrayList<>();
+        inputD.add(2.0d);
+        outputD.add(3.0d);
+        learningData.add(inputD);
+        outputData.add(outputD);
+
+        inputD = new ArrayList<>();
+        outputD = new ArrayList<>();
         inputD.add(3.0d);
         outputD.add(5.0d);
         learningData.add(inputD);
         outputData.add(outputD);
 
-        Double midSqr = 0.0d;
+        inputD = new ArrayList<>();
+        outputD = new ArrayList<>();
+        inputD.add(5.0d);
+        outputD.add(8.0d);
+        learningData.add(inputD);
+        outputData.add(outputD);
 
-       /* predictiveNetwork.incrementNodes();
+        inputD = new ArrayList<>();
+        outputD = new ArrayList<>();
+        inputD.add(8.0d);
+        outputD.add(13.0d);
+        learningData.add(inputD);
+        outputData.add(outputD);
+
+
+        Double midSqr = 0.0d;
+/*
+
+        predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
 */
-
-        do  {
-            midSqr = 0.0d;
-  predictiveNetwork.incrementNodes();
-
-            predictiveNetwork.incrementNodes();
-            //predictiveNetwork.incrementNodes();
-            //predictiveNetwork.incrementNodes();
-            //predictiveNetwork.incrementNodes();
+        List<List<Double>> inpData = new ArrayList<>();
+        List<List<Double>> outData = new ArrayList<>();
+        List<Double> inputNet = new ArrayList<>();
+        List<Double> outputNet = new ArrayList<>();
 
 
+        for (int i = 0; i < learningData.size(); i++){
+            inpData.add(learningData.get(i));
+            outData.add(outputData.get(i));
 
-            predictiveNetwork.encountNet(learningData.get(0));
+            int score = 0;
 
-          /*  System.out.println(predictiveNetwork + "\n\n\n");
+            do {
+                midSqr = 0.0d;
+                for (int j = 0; j < inpData.size(); j++){
+                    inputNet = inpData.get(j);
+                    outputNet = outData.get(j);
+                    predictiveNetwork.encountNet(inputNet);
+                    predictiveNetwork.encountDerivatives();
+                    predictiveNetwork.encountNetErrors(inputNet, outputNet);
+                    predictiveNetwork.encountWeight();
+                }
+
+                midSqr = predictiveNetwork.encountMidSquareError(inpData, outData);
+                System.out.println("error = " + midSqr + "\n\n\n");
+                score++;
+                if (score > 0){
+                    predictiveNetwork.incrementNodes();
+                    score = 0;
+                    //break;
+                }
+
+                score++;
+            } while(midSqr > 0.15);
 
 
-            System.out.println("Result net - > \n" + predictiveNetwork.encountNet(learningData.get(0)) + "\n\n");*/
+        }
 
 
-            predictiveNetwork.encountDerivatives();
-            predictiveNetwork.encountNetErrors(learningData.get(0), outputData.get(0));
-            predictiveNetwork.encountWeight();
-            predictiveNetwork.encountNet(learningData.get(0));
-            midSqr = predictiveNetwork.encountMidSquareError(learningData, outputData);
 
+
+
+            System.out.println(predictiveNetwork + "\n\n\n");
             System.out.println("error = " + midSqr + "\n\n\n");
+            for (List<Double> learn : learningData){
+                System.out.println("input = " + learn + "      output = " + predictiveNetwork.encountNet(learn));
+            }
 
-           /* System.out.println(predictiveNetwork + "\n\n\n");
-            System.out.println("Result net - > \n" + predictiveNetwork.encountNet(learningData.get(0)) + "\n\n");*/
+            List<Double> test = new ArrayList<>();
+            test.add(8.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test));
+            test.remove(0);
+            test.add(13.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test));
 
-        } while (midSqr > 0.005);
+        test.remove(0);
+        test.add(21.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test));
 
-        System.out.println(predictiveNetwork + "\n\n\n");
-        System.out.println("Result net - > \n" + predictiveNetwork.encountNet(learningData.get(0)) + "\n\n");
-
+        test.remove(0);
+        test.add(33.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test));
     }
 
 
