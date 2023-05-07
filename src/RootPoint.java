@@ -21,73 +21,20 @@ public class RootPoint {
         //FunctionEncountingNodesInterface func = new SinusFunction();
 
         NeuralNetI predictiveNetwork = new PredictiveNetwork(1, 1,
-               4, 0.0000000000000000000000009d, 0.15d, func);
+               2, 0.0000000000000000000000000000000000001d, 0.15d, func);
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
 
         rootPoint.createLearningData();
 
-/*
-
-
-       */
-/* List<List<Double>> learningData = new ArrayList<>();
-        List<List<Double>> outputData = new ArrayList<>();*//*
-
-        List<Double> inputD = new ArrayList<>();
-        List<Double> outputD = new ArrayList<>();
-        inputD.add(1.0d);
-        outputD.add(2.0d);
-        rootPoint.learningData.add(inputD);
-        outputData.add(outputD);
-        inputD = new ArrayList<>();
-        outputD = new ArrayList<>();
-        inputD.add(2.0d);
-        outputD.add(3.0d);
-        learningData.add(inputD);
-        outputData.add(outputD);
-
-        inputD = new ArrayList<>();
-        outputD = new ArrayList<>();
-        inputD.add(3.0d);
-        outputD.add(5.0d);
-        learningData.add(inputD);
-        outputData.add(outputD);
-
-        inputD = new ArrayList<>();
-        outputD = new ArrayList<>();
-        inputD.add(5.0d);
-        outputD.add(8.0d);
-        learningData.add(inputD);
-        outputData.add(outputD);
-
-        inputD = new ArrayList<>();
-        outputD = new ArrayList<>();
-        inputD.add(8.0d);
-        outputD.add(13.0d);
-        learningData.add(inputD);
-        outputData.add(outputD);
-
-
-        inputD = new ArrayList<>();
-        outputD = new ArrayList<>();
-        inputD.add(13.0d);
-        outputD.add(21.0d);
-        learningData.add(inputD);
-        outputData.add(outputD);
-*/
-
 
         Double midSqr = 0.0d;
-/*
 
-        predictiveNetwork.incrementNodes();
-        predictiveNetwork.incrementNodes();
-        predictiveNetwork.incrementNodes();
-        predictiveNetwork.incrementNodes();
-        predictiveNetwork.incrementNodes();
-*/
+
+
+
+
         List<List<Double>> inpData = new ArrayList<>();
         List<List<Double>> outData = new ArrayList<>();
         List<Double> inputNet = new ArrayList<>();
