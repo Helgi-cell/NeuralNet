@@ -15,4 +15,8 @@ public interface NeuralNetI {
     List<List<Double>> encountNetErrors(List <Double> inputTemplateOfLearning,List<Double> outputTemplateOfLearning);
 
     Double encountMidSquareError (List<List<Double>> inputLearningData, List<List<Double>> outputLearningData);
+
+    Double getMidSquareError  ();
+
+    Integer getNumberNeuronsInHiddenLayer();
 }

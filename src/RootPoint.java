@@ -3,28 +3,43 @@ import Api.NeuralNetApi.NeuralNetI;
 import Entity.layers.OutputLayer;
 import Entity.network.PredictiveNetwork;
 import service.SigmoidFunction;
+import service.SinusFunction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RootPoint {
+    List<List<Double>> learningData = new ArrayList<>();
+    List<List<Double>> outputData = new ArrayList<>();
+
     public static void main(String[] args) {
 
 
+        RootPoint rootPoint = new RootPoint();
+
         FunctionEncountingNodesInterface func = new SigmoidFunction();
+        //FunctionEncountingNodesInterface func = new SinusFunction();
+
         NeuralNetI predictiveNetwork = new PredictiveNetwork(1, 1,
-               4, 0.000000000000000009d, 0.4d, func);
+               4, 0.0000000000000000000000009d, 0.15d, func);
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
 
-        List<List<Double>> learningData = new ArrayList<>();
-        List<List<Double>> outputData = new ArrayList<>();
+        rootPoint.createLearningData();
+
+/*
+
+
+       */
+/* List<List<Double>> learningData = new ArrayList<>();
+        List<List<Double>> outputData = new ArrayList<>();*//*
+
         List<Double> inputD = new ArrayList<>();
         List<Double> outputD = new ArrayList<>();
         inputD.add(1.0d);
         outputD.add(2.0d);
-        learningData.add(inputD);
+        rootPoint.learningData.add(inputD);
         outputData.add(outputD);
         inputD = new ArrayList<>();
         outputD = new ArrayList<>();
@@ -55,6 +70,15 @@ public class RootPoint {
         outputData.add(outputD);
 
 
+        inputD = new ArrayList<>();
+        outputD = new ArrayList<>();
+        inputD.add(13.0d);
+        outputD.add(21.0d);
+        learningData.add(inputD);
+        outputData.add(outputD);
+*/
+
+
         Double midSqr = 0.0d;
 /*
 
@@ -70,9 +94,9 @@ public class RootPoint {
         List<Double> outputNet = new ArrayList<>();
 
 
-        for (int i = 0; i < learningData.size(); i++){
-            inpData.add(learningData.get(i));
-            outData.add(outputData.get(i));
+        for (int i = 0; i < rootPoint.learningData.size(); i++){
+            inpData.add(rootPoint.learningData.get(i));
+            outData.add(rootPoint.outputData.get(i));
 
             int score = 0;
 
@@ -88,16 +112,17 @@ public class RootPoint {
                 }
 
                 midSqr = predictiveNetwork.encountMidSquareError(inpData, outData);
-                System.out.println("error = " + midSqr + "\n\n\n");
+                //System.out.println("error = " + midSqr + "\n\n\n");
                 score++;
-                if (score > 0){
+                if (score > 100){
+                    System.out.println("error = " + midSqr + "\n\n\n");
                     predictiveNetwork.incrementNodes();
                     score = 0;
                     //break;
                 }
 
                 score++;
-            } while(midSqr > 0.15);
+            } while(midSqr > predictiveNetwork.getMidSquareError() * (i+1) );
 
 
         }
@@ -106,26 +131,35 @@ public class RootPoint {
 
 
 
-            System.out.println(predictiveNetwork + "\n\n\n");
+            System.out.println(predictiveNetwork + "\n\n");
+            System.out.println("Number neurons in the each hidden layer = " + predictiveNetwork.getNumberNeuronsInHiddenLayer() + "\n\n");
             System.out.println("error = " + midSqr + "\n\n\n");
-            for (List<Double> learn : learningData){
+            for (List<Double> learn : rootPoint.learningData){
                 System.out.println("input = " + learn + "      output = " + predictiveNetwork.encountNet(learn));
             }
 
             List<Double> test = new ArrayList<>();
-            test.add(8.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 13);
+            test.add(987.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 1597);
             test.remove(0);
-            test.add(13.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 21);
+            test.add(1597.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 2584);
 
         test.remove(0);
+        test.add(2584.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 4181);
+
+       /* test.remove(0);
         test.add(21.0d);
         System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 34);
 
         test.remove(0);
         test.add(34.0d);
         System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 55);
+
+        test.remove(0);
+        test.add(55.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 89);*/
     }
 
 
@@ -140,6 +174,26 @@ public class RootPoint {
         List<Double> outputLearn = new ArrayList<>();
 
 
+    }
+
+
+    public void createLearningData(){
+        Double [] inputArray = new Double[] {1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0};
+        Double [] outputArray = new Double[] {2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0};
+
+
+        for (int i = 0 ; i < inputArray.length; i++){
+             List<Double> learning = new ArrayList<>();
+             learning.add(inputArray[i]);
+             this.learningData.add(learning);
+         }
+
+
+        for (int i = 0 ; i < outputArray.length; i++){
+            List<Double> learning = new ArrayList<>();
+            learning.add(outputArray[i]);
+            this.outputData.add(learning);
+        }
     }
 
     }

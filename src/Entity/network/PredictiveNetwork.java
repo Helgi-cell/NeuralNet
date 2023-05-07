@@ -277,8 +277,16 @@ public class PredictiveNetwork implements NeuralNetI {
         this.stepLearnimg = stepLearnimg;
     }
 
+    @Override
     public Double getMidSquareError() {
         return midSquareError;
+    }
+
+    @Override
+    public Integer getNumberNeuronsInHiddenLayer() {
+        HiddenLayer hiddenLayer = (HiddenLayer) this.layers.get(1);
+
+        return hiddenLayer.getNeurons().size();
     }
 
     public void setMidSquareError(Double midSquareError) {
