@@ -151,7 +151,7 @@ public class PredictiveNetwork implements NeuralNetI {
                 encountNet(inpData);
                 encountDerivatives();
                 encountNetErrors(inpData, outData);
-                encountWeight();
+                //encountWeight();
                 encountNet(inpData);
                 List<Double> errors = this.netErrors.get(this.netErrors.size() -1);
                 for(Double err : errors){

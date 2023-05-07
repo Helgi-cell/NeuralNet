@@ -21,7 +21,7 @@ public class RootPoint {
         //FunctionEncountingNodesInterface func = new SinusFunction();
 
         NeuralNetI predictiveNetwork = new PredictiveNetwork(1, 1,
-               2, 0.0000000000000000000000000000000000001d, 0.15d, func);
+               4, 0.000000000000000000000000000000000000000000000000000000001d, 0.15d, func);
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
@@ -64,12 +64,13 @@ public class RootPoint {
                 if (score > 100){
                     System.out.println("error = " + midSqr + "\n\n\n");
                     predictiveNetwork.incrementNodes();
+
                     score = 0;
                     //break;
                 }
 
                 score++;
-            } while(midSqr > predictiveNetwork.getMidSquareError() * (i+1) );
+            } while(midSqr > predictiveNetwork.getMidSquareError() * (i + 1));
 
 
         }
@@ -89,14 +90,14 @@ public class RootPoint {
             test.add(987.0d);
         System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 1597);
             test.remove(0);
-            test.add(1597.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 2584);
+           /* test.add(10.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 100);
 
         test.remove(0);
-        test.add(2584.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 4181);
+        test.add(7.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 49);
 
-       /* test.remove(0);
+        test.remove(0);*/
         test.add(21.0d);
         System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 34);
 
@@ -106,7 +107,7 @@ public class RootPoint {
 
         test.remove(0);
         test.add(55.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 89);*/
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 89);
     }
 
 
@@ -125,9 +126,19 @@ public class RootPoint {
 
 
     public void createLearningData(){
-        Double [] inputArray = new Double[] {1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0};
-        Double [] outputArray = new Double[] {2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0};
+        Double [] inputArray = new Double[]
+                {1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0};
+        Double [] outputArray = new Double[]
+                {2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0};
 
+
+/*
+        Double [] inputArray = new Double[]
+                {1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+        Double [] outputArray = new Double[]
+                {1.0, 4.0, 9.0, 16.0, 25.0, 36.0};
+
+*/
 
         for (int i = 0 ; i < inputArray.length; i++){
              List<Double> learning = new ArrayList<>();
