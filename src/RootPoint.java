@@ -21,7 +21,18 @@ public class RootPoint {
 
         NeuralNetI predictiveNetwork = new PredictiveNetwork(1, 1,
                4, 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000999d
-                                                                        , 0.15d, func);
+                                                                        , 0.25d, func);
+
+        predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
+
+
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
@@ -61,7 +72,7 @@ public class RootPoint {
                 midSqr = predictiveNetwork.encountMidSquareError(inpData, outData);
                 //System.out.println("error = " + midSqr + "\n\n\n");
                 score++;
-                if (score > 2){
+                if (score > 100){
                     System.out.println("error = " + midSqr + "\n\n\n");
                     predictiveNetwork.incrementNodes();
 
@@ -126,6 +137,7 @@ public class RootPoint {
 
 
     public void createLearningData(){
+
         Double [] inputArray = new Double[]
                 {1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0
                          };
@@ -134,12 +146,14 @@ public class RootPoint {
                          };
 
 
+
 /*
 
         Double [] inputArray = new Double[]
                 { 2.0, 3.0, 4.0, 5.0, 6.0};
         Double [] outputArray = new Double[]
                 { 4.0, 9.0, 16.0, 25.0, 36.0};
+
 */
 
 

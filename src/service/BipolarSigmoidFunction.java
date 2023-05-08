@@ -10,6 +10,6 @@ public class BipolarSigmoidFunction implements FunctionEncountingNodesInterface 
 
     @Override
     public Double derivativeResultOfNode(Double argument) {
-        return 0.5D * (1 - Math.pow(argument, 2.0d));
+        return  (1 - Math.pow(argument, 2))/2;
     }
 }

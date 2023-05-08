@@ -23,12 +23,12 @@ public class HiddenLayer implements LayerHiddenI {
     private void initLayer(Integer numNeurons, Integer numNeuronsPrevLayer) {
         for (int i = 0; i < numNeurons; i++) {
             this.neurons.add(0.0d);
-            this.threshold.add(0.0d);
+            this.threshold.add((Math.random() / 10.0d - 0.015d)/10);
         }
         for (int i = 0; i < numNeurons; i++){
             List<Double> weightsToNeuron = new ArrayList<>();
             for (int j = 0; j < numNeuronsPrevLayer; j++){
-                Double wght = Math.random() / 10.0d - 0.015d;
+                Double wght = (Math.random() / 10.0d - 0.015d)/10;
                 weightsToNeuron.add(wght);
             }
             this.weigths.add(weightsToNeuron);
@@ -40,25 +40,25 @@ public class HiddenLayer implements LayerHiddenI {
         if (prevNeurons == this.weigths.get(0).size()) {
             List<Double> weightsToNeuron = new ArrayList<>();
             for (int i = 0; i < prevNeurons; i++){
-                Double wght = Math.random() / 10.0d - 0.015d;
+                Double wght = (Math.random() / 10.0d - 0.015d)/10;
                 weightsToNeuron.add(wght);
             }
             this.weigths.add(weightsToNeuron);
             this.threshold.add(0.0d);
         } else {
             for (int i = 0; i < this.weigths.size(); i++) {
-                Double wght = Math.random() / 10.0d - 0.015d;
+                Double wght = (Math.random() / 10.0d - 0.015d)/10;
                 List<Double> weighToNeuron = this.weigths.get(i);
                 weighToNeuron.add(wght);
                 this.weigths.set(i, weighToNeuron);
             }
             List<Double> weightsToNeuron = new ArrayList<>();
             for (int i = 0; i < prevNeurons; i++) {
-                Double wght = Math.random() / 10.0d - 0.015d;
+                Double wght = (Math.random() / 10.0d - 0.015d)/10;
                 weightsToNeuron.add(wght);
             }
             this.weigths.add(weightsToNeuron);
-            this.threshold.add(0.0d);
+            this.threshold.add((Math.random() / 10.0d - 0.015d)/10);
         }
         this.neurons.add(0.0);
         return this.neurons;
