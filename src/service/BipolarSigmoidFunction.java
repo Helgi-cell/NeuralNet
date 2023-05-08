@@ -2,14 +2,14 @@ package service;
 
 import Api.FinctionsApi.FunctionEncountingNodesInterface;
 
-public class SinusFunction implements FunctionEncountingNodesInterface {
+public class BipolarSigmoidFunction implements FunctionEncountingNodesInterface {
     @Override
     public Double nodeResult(Double argument) {
-        return Math.sin(argument);
+        return 2.0d / (1.0d + Math.exp(argument * (-1.0d))) - 1.0d;
     }
 
     @Override
     public Double derivativeResultOfNode(Double argument) {
-        return Math.cos(argument);
+        return 0.5D * (1 - Math.pow(argument, 2.0d));
     }
 }
