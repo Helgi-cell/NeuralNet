@@ -20,7 +20,7 @@ public class RootPoint {
         //FunctionEncountingNodesInterface func = new BipolarSigmoidFunction();
 
         NeuralNetI predictiveNetwork = new PredictiveNetwork(1, 1,
-               4, 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000999d
+               4, 0.000000000000000000001d
                                                                         , 0.25d, func);
 
         predictiveNetwork.incrementNodes();
@@ -72,8 +72,8 @@ public class RootPoint {
                 midSqr = predictiveNetwork.encountMidSquareError(inpData, outData);
                 //System.out.println("error = " + midSqr + "\n\n\n");
                 score++;
-                if (score > 100){
-                    System.out.println("error = " + midSqr + "\n\n\n");
+                if (score > 500){
+                    System.out.println("error = " + midSqr + "\n num = " + (i+1) + "\n\n\n");
                     predictiveNetwork.incrementNodes();
 
                     score = 0;
@@ -109,8 +109,8 @@ public class RootPoint {
         System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 4181);
 
         test.remove(0);
-        test.add(21.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 34);
+        test.add(4181.0d);
+        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 6765);
 
         test.remove(0);
         test.add(34.0d);
@@ -138,6 +138,7 @@ public class RootPoint {
 
     public void createLearningData(){
 
+
         Double [] inputArray = new Double[]
                 {1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0
                          };
@@ -147,7 +148,9 @@ public class RootPoint {
 
 
 
+
 /*
+
 
         Double [] inputArray = new Double[]
                 { 2.0, 3.0, 4.0, 5.0, 6.0};
@@ -155,6 +158,7 @@ public class RootPoint {
                 { 4.0, 9.0, 16.0, 25.0, 36.0};
 
 */
+
 
 
 

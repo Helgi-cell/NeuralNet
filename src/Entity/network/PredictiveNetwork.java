@@ -80,6 +80,8 @@ public class PredictiveNetwork implements NeuralNetI {
         neuronsActivation = outputLayer.encountNeuron(neuronsActivation);
         for (int i = 0; i < neuronsActivation.size(); i++){
             neuronsActivation.set(i, neuronsActivation.get(i) *  templateOfLearning.get(i) + templateOfLearning.get(i));
+            //neuronsActivation.set(i, neuronsActivation.get(i) *  templateOfLearning.get(i) * templateOfLearning.get(i));
+            //neuronsActivation.set(i, neuronsActivation.get(i));
         }
         return neuronsActivation;
     }
