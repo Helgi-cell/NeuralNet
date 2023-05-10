@@ -15,13 +15,22 @@ public class RootPoint {
 
 
         RootPoint rootPoint = new RootPoint();
-
+        rootPoint.createLearningData();
         FunctionEncountingNodesInterface func = new SigmoidFunction();
         //FunctionEncountingNodesInterface func = new BipolarSigmoidFunction();
 
-        NeuralNetI predictiveNetwork = new PredictiveNetwork(1, 1,
-               4, 0.000000000000000000001d
-                                                                        , 0.25d, func);
+        rootPoint.learningNetwork(1, 1,
+                4, 0.000000000000000000000000000000000000000000000000000001d
+                , 0.2d, func);
+
+    }
+
+
+    public void learningNetwork(int numNeuronsInput, int numNeuronsOutput, int numHiddenLayers
+                            , Double stepLearning, Double midSquareError, FunctionEncountingNodesInterface func) {
+
+        NeuralNetI predictiveNetwork = new PredictiveNetwork(numNeuronsInput, numNeuronsOutput,
+                numHiddenLayers, stepLearning, midSquareError, func);
 
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
@@ -31,19 +40,12 @@ public class RootPoint {
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
-
-
+        predictiveNetwork.incrementNodes();
+        predictiveNetwork.incrementNodes();
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
-
-        rootPoint.createLearningData();
-
-
         Double midSqr = 0.0d;
-
-
-
 
 
         List<List<Double>> inpData = new ArrayList<>();
@@ -52,15 +54,15 @@ public class RootPoint {
         List<Double> outputNet = new ArrayList<>();
 
 
-        for (int i = 0; i < rootPoint.learningData.size(); i++){
-            inpData.add(rootPoint.learningData.get(i));
-            outData.add(rootPoint.outputData.get(i));
+        for (int i = 0; i < this.learningData.size(); i++) {
+            inpData.add(this.learningData.get(i));
+            outData.add(this.outputData.get(i));
 
             int score = 0;
 
             do {
                 midSqr = 0.0d;
-                for (int j = 0; j < inpData.size(); j++){
+                for (int j = 0; j < inpData.size(); j++) {
                     inputNet = inpData.get(j);
                     outputNet = outData.get(j);
                     predictiveNetwork.encountNet(inputNet);
@@ -72,69 +74,50 @@ public class RootPoint {
                 midSqr = predictiveNetwork.encountMidSquareError(inpData, outData);
                 //System.out.println("error = " + midSqr + "\n\n\n");
                 score++;
-                if (score > 500){
-                    System.out.println("error = " + midSqr + "\n num = " + (i+1) + "\n\n\n");
+                if (score > 500) {
+                    System.out.println("error = " + midSqr + "\n num = " + (i + 1) + "\n\n\n");
                     predictiveNetwork.incrementNodes();
 
                     score = 0;
                 }
 
                 score++;
-            } while(midSqr > predictiveNetwork.getMidSquareError() + i/10//* (i + 1)
+            } while (midSqr > predictiveNetwork.getMidSquareError() + i / 10//* (i + 1)
             );
-
-
         }
-
-
-
-
-
-            System.out.println(predictiveNetwork + "\n\n");
+           // System.out.println(predictiveNetwork + "\n\n");
             System.out.println("Number neurons in the each hidden layer = " + predictiveNetwork.getNumberNeuronsInHiddenLayer() + "\n\n");
             System.out.println("error = " + midSqr + "\n\n\n");
-            for (List<Double> learn : rootPoint.learningData){
+            for (List<Double> learn : this.learningData){
                 System.out.println("input = " + learn + "      output = " + predictiveNetwork.encountNet(learn));
             }
 
             List<Double> test = new ArrayList<>();
             test.add(987.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 1597);
+            System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 1597);
             test.remove(0);
             test.add(1597.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 2584);
+            System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 2584);
 
-        test.remove(0);
-        test.add(2584.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 4181);
+            test.remove(0);
+            test.add(2584.0d);
+            System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 4181);
 
-        test.remove(0);
-        test.add(4181.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 6765);
+            test.remove(0);
+            test.add(4181.0d);
+            System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 6765);
 
-        test.remove(0);
-        test.add(34.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 55);
+            test.remove(0);
+            test.add(6785.0d);
+            System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 10966);
 
-        test.remove(0);
-        test.add(55.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 89);
-    }
+            test.remove(0);
+            test.add(55.0d);
+            System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 89);
 
-
-    public void learningNetwork(int numNeuronsInput, int numNeuronsOutput, int numHiddenLayers
-                            , Double stepLearning, Double midSquareError, FunctionEncountingNodesInterface func,
-                                List<Double> inputLearningData, List<Double> outputLearningData){
-
-        PredictiveNetwork predictiveNetwork = new PredictiveNetwork(numNeuronsInput, numNeuronsOutput,
-                numHiddenLayers, stepLearning, midSquareError, func);
-
-        List<Double> inputLearn = new ArrayList<>();
-        List<Double> outputLearn = new ArrayList<>();
 
 
     }
-
 
     public void createLearningData(){
 
@@ -146,20 +129,12 @@ public class RootPoint {
                 {2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0
                          };
 
-
-
-
 /*
-
-
         Double [] inputArray = new Double[]
                 { 2.0, 3.0, 4.0, 5.0, 6.0};
         Double [] outputArray = new Double[]
                 { 4.0, 9.0, 16.0, 25.0, 36.0};
-
 */
-
-
 
 
         for (int i = 0 ; i < inputArray.length; i++){
