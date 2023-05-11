@@ -5,10 +5,11 @@ import Serializator.PredictiveNetworkSerializator;
 import service.BipolarSigmoidFunction;
 import service.SigmoidFunction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PredictiveNetRootPoint {
+public class PredictiveNetRootPoint implements Serializable {
     List<List<Double>> learningData = new ArrayList<>();
     List<List<Double>> outputData = new ArrayList<>();
 
@@ -123,7 +124,7 @@ public class PredictiveNetRootPoint {
 
 
         PredictiveNetworkSerializator predictiveNetworkSerializator = new PredictiveNetworkSerializator();
-        predictiveNetworkSerializator.writePredictiveNetworkToFile((PredictiveNetwork) predictiveNetwork);
+        predictiveNetworkSerializator.writePredictiveNetworkToFile((PredictiveNetwork) predictiveNetwork, "fibonacci.net");
     }
 
     public void createLearningData(){
@@ -150,6 +151,12 @@ public class PredictiveNetRootPoint {
             learning.add(outputArray[i]);
             this.outputData.add(learning);
         }
+
+        PredictiveNetworkSerializator predictiveNetworkSerializator = new PredictiveNetworkSerializator();
+
+        predictiveNetworkSerializator.writeInputDataToFile(this.learningData,"fibonacciInput.dat");
+        predictiveNetworkSerializator.writeInputDataToFile(this.outputData,"fibonacciOutput.dat");
+
     }
 
     }
