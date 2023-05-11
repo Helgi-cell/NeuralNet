@@ -1,27 +1,32 @@
 import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Api.NeuralNetApi.NeuralNetI;
 import Entity.network.PredictiveNetwork;
+import Serializator.PredictiveNetworkSerializator;
 import service.BipolarSigmoidFunction;
 import service.SigmoidFunction;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RootPoint {
+public class PredictiveNetRootPoint {
     List<List<Double>> learningData = new ArrayList<>();
     List<List<Double>> outputData = new ArrayList<>();
+
+    public PredictiveNetRootPoint() {
+        createLearningData();
+    }
 
     public static void main(String[] args) {
 
 
-        RootPoint rootPoint = new RootPoint();
-        rootPoint.createLearningData();
+        PredictiveNetRootPoint rootPoint = new PredictiveNetRootPoint();
+        //rootPoint.createLearningData();
         FunctionEncountingNodesInterface func = new SigmoidFunction();
         //FunctionEncountingNodesInterface func = new BipolarSigmoidFunction();
 
         rootPoint.learningNetwork(1, 1,
                 4, 0.000000000000000000000000000000000000000000000000000001d
-                , 0.2d, func);
+                , 0.15d, func);
 
     }
 
@@ -32,6 +37,7 @@ public class RootPoint {
         NeuralNetI predictiveNetwork = new PredictiveNetwork(numNeuronsInput, numNeuronsOutput,
                 numHiddenLayers, stepLearning, midSquareError, func);
 
+
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
@@ -42,6 +48,7 @@ public class RootPoint {
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
+
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
@@ -82,8 +89,7 @@ public class RootPoint {
                 }
 
                 score++;
-            } while (midSqr > predictiveNetwork.getMidSquareError() + i / 10//* (i + 1)
-            );
+            } while (midSqr > (predictiveNetwork.getMidSquareError() + (i / 10)));
         }
            // System.out.println(predictiveNetwork + "\n\n");
             System.out.println("Number neurons in the each hidden layer = " + predictiveNetwork.getNumberNeuronsInHiddenLayer() + "\n\n");
@@ -116,7 +122,8 @@ public class RootPoint {
             System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 89);
 
 
-
+        PredictiveNetworkSerializator predictiveNetworkSerializator = new PredictiveNetworkSerializator();
+        predictiveNetworkSerializator.writePredictiveNetworkToFile((PredictiveNetwork) predictiveNetwork);
     }
 
     public void createLearningData(){
@@ -129,12 +136,6 @@ public class RootPoint {
                 {2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0
                          };
 
-/*
-        Double [] inputArray = new Double[]
-                { 2.0, 3.0, 4.0, 5.0, 6.0};
-        Double [] outputArray = new Double[]
-                { 4.0, 9.0, 16.0, 25.0, 36.0};
-*/
 
 
         for (int i = 0 ; i < inputArray.length; i++){

@@ -2,10 +2,11 @@ package Entity.layers;
 
 import Api.LayersApi.LayerInputI;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputLayer implements LayerInputI {
+public class InputLayer implements LayerInputI, Serializable {
 
     private List<Double> neurons = new ArrayList<>();
     public InputLayer(Integer numNeurons) {

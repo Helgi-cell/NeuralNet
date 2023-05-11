@@ -2,10 +2,12 @@ package Entity.layers;
 
 import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Api.LayersApi.LayerFinalI;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OutputLayer implements LayerFinalI {
+public class OutputLayer implements LayerFinalI, Serializable {
     private List<Double> neurons = new ArrayList<>();
     private List <List<Double>> weigths = new ArrayList<>();
     private List <Double> threshold = new ArrayList<>();

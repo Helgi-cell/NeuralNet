@@ -2,9 +2,11 @@ package service;
 
 import Api.FinctionsApi.FunctionEncountingNodesInterface;
 
+import java.io.Serializable;
+
 import static java.lang.Math.exp;
 
-public class SigmoidFunction implements FunctionEncountingNodesInterface {
+public class SigmoidFunction implements FunctionEncountingNodesInterface, Serializable {
 
     public SigmoidFunction() {
     }

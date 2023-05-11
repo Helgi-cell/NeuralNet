@@ -6,11 +6,13 @@ import Api.NeuralNetApi.NeuralNetI;
 import Entity.layers.HiddenLayer;
 import Entity.layers.InputLayer;
 import Entity.layers.OutputLayer;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class PredictiveNetwork implements NeuralNetI {
+public class PredictiveNetwork implements NeuralNetI, Serializable {
 
     private List<LayerCommonI> layers = new ArrayList<>();
     private Double stepLearnimg;
@@ -35,6 +37,8 @@ public class PredictiveNetwork implements NeuralNetI {
         initNetwork(numNeuronsInputLayer, nimNeuronsOutputLayer, numHiddenLayers);
 
     }
+
+
 
     @Override
     public List<LayerCommonI> initNetwork(Integer numNeuronsInputLayer, Integer nimNeuronsOutputLayer,

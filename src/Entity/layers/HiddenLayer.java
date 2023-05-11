@@ -3,10 +3,11 @@ package Entity.layers;
 import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Api.LayersApi.LayerHiddenI;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HiddenLayer implements LayerHiddenI {
+public class HiddenLayer implements LayerHiddenI, Serializable {
 
     private List<Double> neurons = new ArrayList<>();
     private List <List<Double>> weigths = new ArrayList<>();
@@ -14,7 +15,7 @@ public class HiddenLayer implements LayerHiddenI {
 
     private FunctionEncountingNodesInterface func;
 
-    public HiddenLayer(Integer numNeurons, Integer numNeuronsPrevLayer, FunctionEncountingNodesInterface function)
+    public HiddenLayer (Integer numNeurons, Integer numNeuronsPrevLayer, FunctionEncountingNodesInterface function)
     {
         this.func = function;
         initLayer(numNeurons, numNeuronsPrevLayer);
