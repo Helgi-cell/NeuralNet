@@ -2,25 +2,24 @@ import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Api.NeuralNetApi.NeuralNetI;
 import Entity.network.PredictiveNetwork;
 import Serializator.PredictiveNetworkSerializator;
-import service.BipolarSigmoidFunction;
 import service.SigmoidFunction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PredictiveNetRootPoint implements Serializable {
+public class PredictiveNetworkInitAndLearn implements Serializable {
     List<List<Double>> learningData = new ArrayList<>();
     List<List<Double>> outputData = new ArrayList<>();
 
-    public PredictiveNetRootPoint() {
+    public PredictiveNetworkInitAndLearn() {
         createLearningData();
     }
 
     public static void main(String[] args) {
 
 
-        PredictiveNetRootPoint rootPoint = new PredictiveNetRootPoint();
+        PredictiveNetworkInitAndLearn rootPoint = new PredictiveNetworkInitAndLearn();
         //rootPoint.createLearningData();
         FunctionEncountingNodesInterface func = new SigmoidFunction();
         //FunctionEncountingNodesInterface func = new BipolarSigmoidFunction();
@@ -131,10 +130,10 @@ public class PredictiveNetRootPoint implements Serializable {
 
 
         Double [] inputArray = new Double[]
-                {1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0
+                {1.0, 2.0, 3.0, 5.0, 8.0//, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0
                          };
         Double [] outputArray = new Double[]
-                {2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0
+                {2.0, 3.0, 5.0, 8.0, 13.0//, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0
                          };
 
 
