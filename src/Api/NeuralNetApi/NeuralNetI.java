@@ -1,5 +1,6 @@
 package Api.NeuralNetApi;
 
+import Api.FinctionsApi.FunctionEncountingNodesInterface;
 import Api.LayersApi.LayerCommonI;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface NeuralNetI {
     Double getMidSquareError  ();
 
     Integer getNumberNeuronsInHiddenLayer();
+
+    List<LayerCommonI> incrementNewLayer();
 }

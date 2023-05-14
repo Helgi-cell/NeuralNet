@@ -265,7 +265,14 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
         return this.layers;
     }
 
-
+    @Override
+    public List<LayerCommonI> incrementNewLayer() {
+        HiddenLayer prevHiddenLayer = (HiddenLayer) this.layers.get(1);
+        HiddenLayer newHidenlayer = new HiddenLayer(prevHiddenLayer.getNeurons().size()
+                                                    , prevHiddenLayer.getNeurons().size(), func);
+        this.layers.add(2, newHidenlayer);
+        return this.layers;
+    }
 
     public List<LayerCommonI> getLayers() {
         return layers;
@@ -294,6 +301,8 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
 
         return hiddenLayer.getNeurons().size();
     }
+
+
 
     public void setMidSquareError(Double midSquareError) {
         this.midSquareError = midSquareError;

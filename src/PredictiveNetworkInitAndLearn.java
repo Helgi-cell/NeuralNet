@@ -25,7 +25,7 @@ public class PredictiveNetworkInitAndLearn implements Serializable {
         //FunctionEncountingNodesInterface func = new BipolarSigmoidFunction();
 
         rootPoint.learningNetwork(1, 1,
-                4, 0.000000000000000000000000000000000000000000000000000001d
+                4, 0.00000000000000000000000000000000000000000000000000000999d
                 , 0.15d, func);
 
     }
@@ -36,6 +36,7 @@ public class PredictiveNetworkInitAndLearn implements Serializable {
 
         NeuralNetI predictiveNetwork = new PredictiveNetwork(numNeuronsInput, numNeuronsOutput,
                 numHiddenLayers, stepLearning, midSquareError, func);
+/*
 
 
         predictiveNetwork.incrementNodes();
@@ -49,6 +50,7 @@ public class PredictiveNetworkInitAndLearn implements Serializable {
         predictiveNetwork.incrementNodes();
         predictiveNetwork.incrementNodes();
 
+*/
 
         System.out.println(predictiveNetwork + "\n\n\n");
 
@@ -81,7 +83,7 @@ public class PredictiveNetworkInitAndLearn implements Serializable {
                 midSqr = predictiveNetwork.encountMidSquareError(inpData, outData);
                 //System.out.println("error = " + midSqr + "\n\n\n");
                 score++;
-                if (score > 500) {
+                if (score > 0) {
                     System.out.println("error = " + midSqr + "\n num = " + (i + 1) + "\n\n\n");
                     predictiveNetwork.incrementNodes();
 
@@ -91,7 +93,7 @@ public class PredictiveNetworkInitAndLearn implements Serializable {
                 score++;
             } while (midSqr > (predictiveNetwork.getMidSquareError() + (i / 10)));
         }
-           // System.out.println(predictiveNetwork + "\n\n");
+        /*   // System.out.println(predictiveNetwork + "\n\n");
             System.out.println("Number neurons in the each hidden layer = " + predictiveNetwork.getNumberNeuronsInHiddenLayer() + "\n\n");
             System.out.println("error = " + midSqr + "\n\n\n");
             for (List<Double> learn : this.learningData){
@@ -119,7 +121,7 @@ public class PredictiveNetworkInitAndLearn implements Serializable {
 
             test.remove(0);
             test.add(55.0d);
-            System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 89);
+            System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 89);*/
 
 
         PredictiveNetworkSerializator predictiveNetworkSerializator = new PredictiveNetworkSerializator();
@@ -130,10 +132,10 @@ public class PredictiveNetworkInitAndLearn implements Serializable {
 
 
         Double [] inputArray = new Double[]
-                {1.0, 2.0, 3.0, 5.0, 8.0//, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0
+                {1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0
                          };
         Double [] outputArray = new Double[]
-                {2.0, 3.0, 5.0, 8.0, 13.0//, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0
+                {2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0
                          };
 
 

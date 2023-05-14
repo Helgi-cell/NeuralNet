@@ -1,4 +1,4 @@
-import Api.NeuralNetApi.NeuralNetI;
+
 import Entity.network.PredictiveNetwork;
 import Serializator.PredictiveNetworkSerializator;
 
@@ -8,7 +8,7 @@ import java.util.List;
 public class NeuralNet {
 
     public NeuralNet() {
-        createLearningData();
+        createTestData();
     }
 
     public static void main(String [] args) {
@@ -30,47 +30,17 @@ public class NeuralNet {
 
 
 
-
-        //List<Double> test = new ArrayList<>();
-
-       /* List<Double> test = new ArrayList<>();
-        test.add(987.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 1597);
-        test.remove(0);
-        test.add(1597.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 2584);
-
-        test.remove(0);
-        test.add(2584.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 4181);
-
-        test.remove(0);
-        test.add(4181.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 6765);
-
-        test.remove(0);
-        test.add(6785.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 10966);
-
-        test.remove(0);
-        test.add(55.0d);
-        System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 89);
-*/
-
-
-
-
     }
 
 
-    public void createLearningData(){
+    public void createTestData(){
 
 
         Double [] inputArray = new Double[]
-                {987.0, 1597.0, 2584.0, 4181.0, 6765.0, 10946.0//, 21.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0
+                {987.0, 1597.0, 2584.0, 4181.0, 6765.0, 10946.0, 17711.0, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0
                 };
         Double [] outputArray = new Double[]
-                {1597.0, 2584.0, 4181.0, 6765.0, 10946.0, 17711.0//, 34.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0
+                {1597.0, 2584.0, 4181.0, 6765.0, 10946.0, 17711.0, 28657.0, 55.0, 89.0, 144.0, 233.0, 377.0, 610.0, 987.0
                 };
 
             List<List<Double>> inputData = new ArrayList<>();
