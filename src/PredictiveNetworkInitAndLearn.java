@@ -93,13 +93,13 @@ public class PredictiveNetworkInitAndLearn implements Serializable {
                 score++;
             } while (midSqr > (predictiveNetwork.getMidSquareError() + (i / 10)));
         }
-        /*   // System.out.println(predictiveNetwork + "\n\n");
+           // System.out.println(predictiveNetwork + "\n\n");
             System.out.println("Number neurons in the each hidden layer = " + predictiveNetwork.getNumberNeuronsInHiddenLayer() + "\n\n");
             System.out.println("error = " + midSqr + "\n\n\n");
             for (List<Double> learn : this.learningData){
                 System.out.println("input = " + learn + "      output = " + predictiveNetwork.encountNet(learn));
             }
-
+        /*
             List<Double> test = new ArrayList<>();
             test.add(987.0d);
             System.out.println("test = " + test + "      output = " + predictiveNetwork.encountNet(test) + "   must = " + 1597);
