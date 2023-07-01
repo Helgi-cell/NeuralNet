@@ -3,15 +3,18 @@ package Serializator;
 import Api.NeuralNetApi.NeuralNetI;
 import Entity.network.PredictiveNetwork;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.List;
 
 public class PredictiveNetworkSerializator {
 
     public void writePredictiveNetworkToFile(PredictiveNetwork neuralNet , String filename) {
+
+        File file = new File(filename);
+        if (file.exists()){
+            file.delete();
+        }
+
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
 
             oos.writeObject(neuralNet);
@@ -37,6 +40,14 @@ public class PredictiveNetworkSerializator {
 
 
     public void writeInputDataToFile(List<List <Double>> inputData, String filename) {
+
+
+        File file = new File(filename);
+        if (file.exists()){
+            file.delete();
+        }
+
+
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
 
             oos.writeObject(inputData);

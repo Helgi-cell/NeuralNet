@@ -17,9 +17,13 @@ public interface NeuralNetI {
 
     Double encountMidSquareError (List<List<Double>> inputLearningData, List<List<Double>> outputLearningData);
 
+    Double encountMaxError (List<List<Double>> inputLearningData, List<List<Double>> outputLearningData);
+
     Double getMidSquareError  ();
 
     Integer getNumberNeuronsInHiddenLayer();
+
+    Integer getNumberHiddenLayers();
 
     List<LayerCommonI> incrementNewLayer();
 }

@@ -168,6 +168,30 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
         return midError * 0.5d;
     }
 
+    @Override
+    public Double encountMaxError(List<List<Double>> inputLearningData, List<List<Double>> outputLearningData) {
+        Double midError = Double.MIN_VALUE;
+        List<Double> inpData;
+        List<Double> outData;
+        for (int i = 0; i < inputLearningData.size(); i++){
+            inpData = inputLearningData.get(i);
+            outData = outputLearningData.get(i);
+            encountNet(inpData);
+            encountDerivatives();
+            encountNetErrors(inpData, outData);
+            //encountWeight();
+            encountNet(inpData);
+            List<Double> errors = this.netErrors.get(this.netErrors.size() -1);
+            for(Double err : errors){
+                if (midError < Math.abs(err)){
+                    midError =  Math.abs(err);
+                }
+            }
+        }
+
+        return midError;
+    }
+
 
     private void fillStackEncountErrors(){
 
@@ -302,6 +326,10 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
         return hiddenLayer.getNeurons().size();
     }
 
+    @Override
+    public Integer getNumberHiddenLayers() {
+        return this.layers.size() - 2;
+    }
 
 
     public void setMidSquareError(Double midSquareError) {

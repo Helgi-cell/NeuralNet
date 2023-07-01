@@ -13,7 +13,6 @@ public class PredictiveNetworkAddLearningData {
         predictiveNetworkAddLearningData.createLearningData();
     }
 
-
     public void createLearningData(){
 
 
@@ -25,22 +24,20 @@ public class PredictiveNetworkAddLearningData {
                 };
 
 
-
         for (int i = 0 ; i < inputArray.length; i++){
             List<Double> learning = new ArrayList<>();
-            learning.add(inputArray[i]);
+            learning.add(inputArray[i]/1000);
             this.learningData.add(learning);
         }
 
 
         for (int i = 0 ; i < outputArray.length; i++){
             List<Double> learning = new ArrayList<>();
-            learning.add(outputArray[i]);
+            learning.add(outputArray[i]/1000);
             this.outputData.add(learning);
         }
 
         PredictiveNetworkSerializator predictiveNetworkSerializator = new PredictiveNetworkSerializator();
-
         predictiveNetworkSerializator.writeInputDataToFile(this.learningData,"fibonacciInput.dat");
         predictiveNetworkSerializator.writeInputDataToFile(this.outputData,"fibonacciOutput.dat");
 
