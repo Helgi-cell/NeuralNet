@@ -43,7 +43,6 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
     @Override
     public List<LayerCommonI> initNetwork(Integer numNeuronsInputLayer, Integer nimNeuronsOutputLayer,
                                           Integer numHiddenLayers) {
-
         this.layers.add(new InputLayer(numNeuronsInputLayer));
         int numNeuprev = numNeuronsInputLayer;
         int numNeu = numNeuronsInputLayer + 1;
@@ -61,14 +60,12 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
             this.netErrors.add(errorNode);
             this.derivatives.add(errorNode);
         }
-
         List<Double> errorNode = new ArrayList<>();
         for(int i = 0; i < nimNeuronsOutputLayer; i++){
                 errorNode.add(0.0d);
         }
         this.netErrors.add(errorNode);
         this.derivatives.add(errorNode);
-
         return this.layers;
     }
 
@@ -84,8 +81,6 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
         neuronsActivation = outputLayer.encountNeuron(neuronsActivation);
         for (int i = 0; i < neuronsActivation.size(); i++){
             neuronsActivation.set(i, neuronsActivation.get(i) *  templateOfLearning.get(i) + templateOfLearning.get(i));
-            //neuronsActivation.set(i, neuronsActivation.get(i) *  templateOfLearning.get(i));
-            //neuronsActivation.set(i, neuronsActivation.get(i));
         }
         return neuronsActivation;
     }
@@ -157,14 +152,12 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
                 encountNet(inpData);
                 encountDerivatives();
                 encountNetErrors(inpData, outData);
-                //encountWeight();
                 encountNet(inpData);
                 List<Double> errors = this.netErrors.get(this.netErrors.size() -1);
                 for(Double err : errors){
                     midError += Math.pow(err, 2);
                 }
             }
-
         return midError * 0.5d;
     }
 
@@ -188,7 +181,6 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
                 }
             }
         }
-
         return midError;
     }
 
@@ -197,7 +189,6 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
 
         for (List<Double> err : this.netErrors){ this.errorsStack.push(err); }
         for (List<Double> der : this.derivatives){ this.derivateStack.push(der);}
-
         HiddenLayer hiddenLayer;
         for(int i = 2; i < this.layers.size() - 1; i++){
             hiddenLayer = (HiddenLayer)this.layers.get(i);
@@ -227,19 +218,15 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
                 thresholdOfLayer.set(i, (thresholdOfLayer.get(i)
                                         + this.stepLearnimg * errorsOfLayer.get(i) * derivativesOfLayer.get(i)));
             }
-
-
             for (int j = 0; j < weigthsOfLayer.size(); j++){
                     List<Double> wgth = weigthsOfLayer.get(j);
 
                 for(int i = 0; i < weigthsOfLayer.get(j).size(); i++){
                     wgth.set(i,wgth.get(i) - this.stepLearnimg * errorsOfLayer.get(j)
                                                                         * derivativesOfLayer.get(j) * prevNodes.get(i));
-
                 }
             }
         }
-
         return null;
     }
 
@@ -284,8 +271,6 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
         for (int i = 1; i < this.layers.size() -1; i++ ){
             this.netErrors.get(i - 1).add(0.0d);
         }
-
-
         return this.layers;
     }
 
@@ -301,28 +286,22 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
     public List<LayerCommonI> getLayers() {
         return layers;
     }
-
     public void setLayers(List<LayerCommonI> layers) {
         this.layers = layers;
     }
-
     public Double getStepLearnimg() {
         return stepLearnimg;
     }
-
     public void setStepLearnimg(Double stepLearnimg) {
         this.stepLearnimg = stepLearnimg;
     }
-
     @Override
     public Double getMidSquareError() {
         return midSquareError;
     }
-
     @Override
     public Integer getNumberNeuronsInHiddenLayer() {
         HiddenLayer hiddenLayer = (HiddenLayer) this.layers.get(1);
-
         return hiddenLayer.getNeurons().size();
     }
 
@@ -330,29 +309,21 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
     public Integer getNumberHiddenLayers() {
         return this.layers.size() - 2;
     }
-
-
     public void setMidSquareError(Double midSquareError) {
         this.midSquareError = midSquareError;
     }
-
     public FunctionEncountingNodesInterface getFunc() {
         return func;
     }
-
     public void setFunc(FunctionEncountingNodesInterface func) {
         this.func = func;
     }
-
     public List<List<Double>> getDerivatives() {
         return derivatives;
     }
-
     public void setDerivatives(List<List<Double>> derivatives) {
         this.derivatives = derivatives;
     }
-
-
 
     @Override
     public String toString() {
@@ -364,6 +335,5 @@ public class PredictiveNetwork implements NeuralNetI, Serializable {
                 "\n\t, derivatives=\n\t" + derivatives +
                 '}';
     }
-
 
 }
